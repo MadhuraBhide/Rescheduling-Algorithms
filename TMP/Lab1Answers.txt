@@ -1,0 +1,59 @@
+Operating Systems
+CSC 501
+Madhura Bhide 200201405
+
+Assignment PA1
+
+1. What are the advantages and disadvantages of each of the two scheduling policies? 
+Also, give the advantages and disadvantages of the round robin scheduling policy originally implemented in Xinu.
+
+Advantages of Random scheduler:
+1. It prevents processes from starvation. Each process in the ready queue gets a chance to execute. 
+2. Random scheduler gives a better CPU time share to higher priority process, hence acheiving fairness.
+
+Disadvantages of Random scheduler:
+1. Context switching algorithm is complicated as compared to Xinu scheduling.
+2. The random function used to select next process to be scheduled, makes the nature of algorithm unpredictable.
+3. Random Scheduler uses one more queue for storing process priorities.
+
+Advantages of Linux scheduler:
+1. Schedules processes on the basis of their priorities as well as their unused quantum, which prevents starvation.
+2. It schedules processes fairly as compared to other two scheduling algorithms as it assigns more CPU share to higher priority processes.
+
+Disadvantages of Linux scheduler:
+1. Algorithm is complex to implement.
+2. It invloves more computations before deciding which process to schedule, hence consumes too much processing as compared to other two.
+
+Advantages of Xinu scheduler:
+1. Very simple algorithm to implement.
+2. Higher priority process gets highest CPU share
+
+Disadvantages of Xinu scheduler:
+1. Process starvation may occur in which lower priority processes wait for their CPU share indefinitely.
+2.  Kernel cannot preempt a higher priority process that have stuck in an
+    infinite loop.
+
+2. Assume that there are three processes P1, P2, P3 that will run forever without blocking. 
+We want to allocate the following CPU times to each of them: 20% to P1, 30% to P2, and 50% to P3. 
+Which priorities do we need to set to P1, P2, and P3 to accomplish this if we want to use the Random scheduler?  
+Assume that those processes are the only ones running in the machine. Could you give a generalization of your result to n processes? Explain.
+
+If P1, P2, P3 are running forever without blocking, and these are the only ones running, priorities that should be set in random scheduler:
+
+P1 = (20/100)*(20+30+50)      P2 = (30/100)*(20+30+50)       P3 = (50/100)*(20+30+50)
+Hence, Priorities that should be assigned to processes in random scheduler:
+P1 = 20, P2 = 30, P3 = 50
+
+For n processes,
+if p1, p2, p3.......pn are percentages of CPU times for n processes,
+sum = p1+p2+p3+.....+pn
+P1 = p1/sum  P2 = p2/sum ......... Pn = pn/sum
+
+
+3. Describe the way each of the schedulers affects the NULL process.
+
+Random Scheduler and Linux Scheduler implemented in the code will schedule NULL process if no other process is running and ready queue is empty.
+Xinu will schedule prnull process if it reaches end of ready queue and will schedule process with priority 0 which is NULL process.
+It is the default process that should run on Xinu kernel if no other process is ready for execution.
+
+
